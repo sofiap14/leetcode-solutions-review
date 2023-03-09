@@ -1,0 +1,35 @@
+On an 8 x 8 chessboard, there is exactly one white rook 'R' and some number of white bishops 'B', black pawns 'p', and empty squares '.'.
+When the rook moves, it chooses one of four cardinal directions (north, east, south, or west), then moves in that direction until it chooses to stop, 
+reaches the edge of the board, captures a black pawn, or is blocked by a white bishop. 
+A rook is considered attacking a pawn if the rook can capture the pawn on the rook's turn. 
+The number of available captures for the white rook is the number of pawns that the rook is attacking. Return the number of available captures for the white rook.
+
+class Solution:
+    def numRookCaptures(self, board: List[List[str]]) -> int:
+        for r in range(8):
+            for c in range(8):
+                if board[r][c] == 'R':
+                    rook = (r,c)
+                    break
+        directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        output = 0
+        for d in directions:
+            r, c = rook[0]+d[0], rook[1]+d[1]
+            while 0 <= r < 8 and 0 <= c < 8:
+                if board[r][c] == 'B':
+                    break
+                if board[r][c] == 'p':
+                    output += 1
+                    break
+                r += d[0]
+                c += d[1]
+        return output
+
+1. The function receives a chess board represented as a list of lists containing strings.
+2. It searches for the rook (a piece that can move in horizontal and vertical directions) by iterating over every cell in the board until it finds the cell that contains the letter "R".
+3. It creates a list called directions that contains tuples representing the four possible directions the rook can move: up, down, left, and right.
+4. It initializes a variable called output to 0, which will represent the number of pawns the rook captures.
+5. For each direction in the directions list, the code checks all cells in that direction starting from the rook's position until 
+   it reaches the end of the board or encounters a blocking piece (represented by the letter "B").
+6. If the code encounters a pawn (represented by the letter "p") during the search, it increments the output variable.
+7. The function returns the value of the output variable, which represents the number of pawns the rook captures.
