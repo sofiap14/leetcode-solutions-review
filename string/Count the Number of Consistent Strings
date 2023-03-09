@@ -1,0 +1,18 @@
+You are given a string allowed consisting of distinct characters and an array of strings words. 
+A string is consistent if all characters in the string appear in the string allowed.
+Return the number of consistent strings in the array words.
+
+class Solution:
+    def countConsistentStrings(self, allowed: str, words: List[str]) -> int:
+        count = 0
+        for word in words:
+            if set(word).issubset(allowed):
+                count += 1
+        return count
+
+- The function takes a string "allowed" and a list of strings "words" as input.
+- A counter variable "count" is initialized to zero.
+- For each string "word" in the "words" list:
+- The set of characters in the "word" is checked to see if it is a subset of the "allowed" characters using the "issubset" method.
+- If it is, then the "count" is incremented.
+- The final value of "count" is returned as the output of the function.
