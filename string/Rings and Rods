@@ -1,0 +1,48 @@
+There are n rings and each ring is either red, green, or blue. The rings are distributed across ten rods labeled from 0 to 9.
+
+You are given a string rings of length 2n that describes the n rings that are placed onto the rods. Every two characters in rings forms a color-position pair
+that is used to describe each ring where:
+
+The first character of the ith pair denotes the ith ring's color ('R', 'G', 'B').
+The second character of the ith pair denotes the rod that the ith ring is placed on ('0' to '9').
+For example, "R3G2B1" describes n == 3 rings: a red ring placed onto the rod labeled 3, a green ring placed onto the rod labeled 2, 
+and a blue ring placed onto the rod labeled 1.
+
+Return the number of rods that have all three colors of rings on them.
+
+class Solution:
+    def countPoints(self, rings: str) -> int:
+        combinations = {}
+        colors = "RGB"
+        for i in range(0, len(rings), 2):
+            combo = rings[i:i+2]
+            if combo not in combinations:
+                combinations[combo] = 0
+            combinations[combo] += 1
+
+        res = 0
+        for pole in range(10):
+            count = 0
+            for color in ['R','G','B']:
+                if color+str(pole) in combinations:
+                    count += 1
+                    if count == 3:
+                        res += 1
+                else:
+                    break
+        return res
+
+1. The function takes a string "rings" as input.
+2. A dictionary "combinations" is initialized to store the count of each ring combination.
+3. A string of colors "RGB" is created.
+4. For each two characters in "rings":
+    - If the combination is not already in "combinations", it is added with a count of 0.
+    - The count for the combination is then incremented.
+5. A result variable "res" is initialized to 0.
+6. For each pole in the range 0-9:
+    - A count variable is initialized to 0.
+7. For each color in "RGB":
+    - If the color and the pole number concatenated together exist in "combinations", the count is incremented.
+    - If the count is equal to 3, it means all three colors exist for this pole, and the result is incremented by 1.
+    - If the color and pole combination doesn't exist in "combinations", the loop is broken.
+8. The final value of "res" is returned as the output of the function.
