@@ -1,0 +1,24 @@
+Given a square matrix mat, return the sum of the matrix diagonals.
+Only include the sum of all the elements on the primary diagonal and all the elements on the secondary diagonal that are not part of the primary diagonal.
+
+class Solution:
+    def diagonalSum(self, mat: List[List[int]]) -> int:
+        n = len(mat)
+        diagonal_sum = 0
+        for i in range(n):
+            diagonal_sum += mat[i][i] + mat[i][n-1-i]
+        if n % 2 == 1:
+            diagonal_sum -= mat[n//2][n//2]
+        return diagonal_sum
+        
+
+1. The function takes a 2D list "mat" as input.
+2. The length of the matrix "n" is calculated.
+3. A variable "diagonal_sum" is initialized to 0 to store the sum of diagonal elements.
+4. For each row in the matrix:
+    - The diagonal element and its opposite diagonal element are added to "diagonal_sum". 
+     (The diagonal element is the element at the same row and column index, i.e., mat[i][i])
+     (The opposite diagonal element is the element at the row index i and column index n-1-i, i.e., mat[i][n-1-i])
+5. If the length of the matrix is odd:
+    - The center element of the matrix is subtracted from "diagonal_sum".
+6. The final value of "diagonal_sum" is returned as the output of the function.
