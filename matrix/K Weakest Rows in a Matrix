@@ -1,0 +1,41 @@
+You are given an m x n binary matrix mat of 1's (representing soldiers) and 0's (representing civilians). 
+The soldiers are positioned in front of the civilians. That is, all the 1's will appear to the left of all the 0's in each row.
+
+A row i is weaker than a row j if one of the following is true:
+
+The number of soldiers in row i is less than the number of soldiers in row j.
+Both rows have the same number of soldiers and i < j.
+Return the indices of the k weakest rows in the matrix ordered from weakest to strongest.
+
+class Solution:
+    def kWeakestRows(self, mat: List[List[int]], k: int) -> List[int]:
+        minHeap = []
+        heapq.heapify(minHeap)
+        for nrow in range(len(mat)):
+            heapq.heappush(minHeap, (sum(mat[nrow]), nrow))
+        res = []
+        while k:
+            row, index = heapq.heappop(minHeap)
+            res.append(index)
+            k -= 1
+        return res
+
+        # krows = {}
+        # i = 0
+        # for row in mat:
+        #     rowsum = sum(row)
+        #     krows[i] = rowsum
+        #     i += 1
+        # no_of_soldiers = sorted(krows.items(), key=lambda x: x[1])
+        # result = [row_number[0] for row_number in no_of_soldiers[:k]]
+        # return result
+
+1. A min heap is created and each row in mat is pushed to the heap with its sum and index
+2. While k > 0, the row with the smallest sum is popped from the heap and its index is appended to res
+3. The function returns res, containing the k weakest rows in mat
+
+#2nd approach
+1. Iterate through each row of the matrix and calculate the sum of elements in the row.
+2. Store the row number and its sum in a dictionary krows.
+3. Sort the krows dictionary based on the sum of elements in ascending order.
+4. Extract the first k row numbers from the sorted dictionary and return them as the result.
