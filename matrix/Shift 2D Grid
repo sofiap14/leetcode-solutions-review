@@ -1,0 +1,28 @@
+class Solution:
+    def shiftGrid(self, grid: List[List[int]], k: int) -> List[List[int]]:
+        rows = len(grid)
+        cols = len(grid[0])
+        N = rows*cols
+        shift = k%N # since max shift is N - 1 otherwise it's just a cycle
+        
+        if shift == 0: # no need to shift
+            return grid
+			
+        # flatten array
+        flattened = []
+        for y in range(rows):
+            for x in range(cols):
+                flattened.append(grid[y][x])
+                
+		# shift array
+        flattened = flattened[-shift:] + flattened[:-shift]
+		
+        return  [[ flattened[y*cols + x] for x in range(cols)] for y in range(rows)] #convert back to 2d array
+        
+1. The function takes a 2D list (grid) and an integer (k) as input and returns a shifted 2D list.
+2. The variable 'shift' is calculated by taking the remainder of k divided by the total number of elements in the grid (N).
+3. If shift is 0, then there is no need to shift and the original grid is returned.
+4. The grid is flattened into a 1D list for easy shifting.
+5. The flattened list is shifted by slicing it and concatenating the two halves.
+6. The shifted list is converted back to a 2D list by splitting it into rows and columns using a list comprehension.
+7. The function returns the shifted 2D list.
