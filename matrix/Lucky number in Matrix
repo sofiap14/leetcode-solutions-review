@@ -1,0 +1,21 @@
+Given an m x n matrix of distinct numbers, return all lucky numbers in the matrix in any order.
+A lucky number is an element of the matrix such that it is the min element in its row and max element in its column.
+
+class Solution:
+    def luckyNumbers (self, matrix: List[List[int]]) -> List[int]:
+        maxlist, minlist = [], []
+        for row in matrix:
+            minlist.append(min(row))
+        for c in range(len(matrix[0])):
+            max_ele = 0
+            for r in range(len(matrix)):
+                if matrix[r][c] > max_ele:
+                    max_ele = matrix[r][c]
+            maxlist.append(max_ele)
+        return list(set(maxlist) & set(minlist))
+        
+1. Append minimum values from each row to "minlist".
+2. Find maximum value in each column and append to "maxlist".
+3. Return the intersection of "maxlist" and "minlist" as the lucky numbers.
+        
+            
