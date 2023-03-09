@@ -1,0 +1,38 @@
+You are given an n x n grid where we place some 1 x 1 x 1 cubes that are axis-aligned with the x, y, and z axes.
+Each value v = grid[i][j] represents a tower of v cubes placed on top of the cell (i, j).
+We view the projection of these cubes onto the xy, yz, and zx planes.
+A projection is like a shadow, that maps our 3-dimensional figure to a 2-dimensional plane. 
+We are viewing the "shadow" when looking at the cubes from the top, the front, and the side.
+Return the total area of all three projections.
+
+class Solution:
+    def projectionArea(self, grid: List[List[int]]) -> int:
+        summ = 0
+        """for XY projection"""
+        for row in grid:
+            for column in row:
+                if column > 0:
+                    summ += 1
+        
+        """for XZ projection"""
+        for row in grid:
+            summ += max(row)
+
+        """for YZ projection"""
+        for column in range(len(grid[0])):
+            maxx = 0
+            for row in grid:
+                maxx = max(maxx, row[column])
+            summ += maxx
+        return summ
+        
+1. The function takes a 2D list called grid as input.
+2. A variable called summ is initialized to 0 to store the sum of the areas of the projections.
+3. The first projection is the XY projection, which is the sum of the number of non-zero elements in each cell of the grid. 
+   This is done using two nested loops that iterate over each element in the grid, and if the element is greater than 0, it adds 1 to the summ variable.
+4. The second projection is the XZ projection, which is the sum of the maximum value in each row of the grid. 
+   This is done by iterating over each row of the grid, and adding the maximum value in the row to the summ variable.
+5. The third projection is the YZ projection, which is the sum of the maximum value in each column of the grid. 
+   This is done by iterating over each column of the grid, and for each column, iterating over each row to find the maximum value in that column, 
+   and adding it to the summ variable.
+6. Finally, the function returns the summ variable, which contains the sum of the areas of all three projections.
