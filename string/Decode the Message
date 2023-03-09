@@ -1,0 +1,42 @@
+You are given the strings key and message, which represent a cipher key and a secret message, respectively. The steps to decode message are as follows:
+
+Use the first appearance of all 26 lowercase English letters in key as the order of the substitution table.
+Align the substitution table with the regular English alphabet.
+Each letter in message is then substituted using the table.
+Spaces ' ' are transformed to themselves.
+For example, given key = "happy boy" (actual key would have at least one instance of each letter in the alphabet), 
+we have the partial substitution table of ('h' -> 'a', 'a' -> 'b', 'p' -> 'c', 'y' -> 'd', 'b' -> 'e', 'o' -> 'f').
+Return the decoded message.
+
+class Solution:
+    def decodeMessage(self, key: str, message: str) -> str:
+        table = {}
+        alphabets = list("abcdefghijklmnopqrstuvwxyz")
+        key = key.replace(" ", "")
+        i = 0
+        for ch in key:
+            if ch in alphabets and ch not in table:
+                table[ch] = alphabets[i]
+                i += 1
+            continue
+
+        output = ""
+
+        for i in range(len(message)):
+            if message[i] == " ":
+                output += " "
+            else:
+                output += table[message[i]]
+        return output
+
+- The function takes two strings "key" and "message" as input.
+- A dictionary called "table" is created to map each character in "key" to a character in the alphabet.
+- A list "alphabets" containing all the alphabets is created.
+- All spaces in "key" are removed using "replace".
+- For each character "ch" in "key":
+    - If "ch" is an alphabet and not already in "table", then it is mapped to the corresponding alphabet in "alphabets".
+- A string called "output" is initialized.
+- For each character in "message":
+    - If the character is a space, it is added to "output".
+- Otherwise, the corresponding character from "table" is added to "output".
+- The resulting "output" string is returned.
