@@ -1,0 +1,26 @@
+An integer n is strictly palindromic if, for every base b between 2 and n - 2 (inclusive), the string representation of the integer n in base b is palindromic.
+Given an integer n, return true if n is strictly palindromic and false otherwise.
+A string is palindromic if it reads the same forward and backward
+
+class Solution:
+    def isStrictlyPalindromic(self, n: int) -> bool:
+        for base in range(2, n - 1):
+            digits = []
+            x = n
+            while x > 0:
+                digits.append(str(x % base))
+                x //= base
+            print(digits)
+            if not self.is_palindrome(''.join(digits)):
+                return False
+        return True
+
+    def is_palindrome(self, string):
+        return string == string[::-1]
+
+1. The method loops through each base from 2 to n - 1.
+2. For each base, it converts n to that base and stores the digits in a list.
+3. It then checks if the list of digits is a palindrome using the is_palindrome method.
+4. The is_palindrome method returns True if the string is a palindrome, False otherwise.
+5. If the list of digits is not a palindrome, the method returns False.
+6. If all lists of digits are palindromes, the method returns True.
