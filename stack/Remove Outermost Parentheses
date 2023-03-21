@@ -1,0 +1,28 @@
+class Solution:
+    def removeOuterParentheses(self, s: str) -> str:
+        stack = []
+        res = ""
+        outer = True
+        for char in s:
+            if char == '(':
+                if not outer:
+                    res += char
+                else:
+                    stack.append(char)
+                    outer = False
+            elif char == ')':
+                stack.pop()
+                if not stack:
+                    outer = True
+                else:
+                    res += char
+        return res
+
+        
+1. Initialize an empty stack, an empty result string, and a boolean variable outer to True
+2. Iterate over each character in the input string s
+3. If the character is '(', append it to the stack and set outer to False
+4. If the character is ')', pop the top element from the stack and check if it's empty
+5. If the stack is empty, set outer to True
+6. If outer is False, add the character to the result string
+7. Return the result string
