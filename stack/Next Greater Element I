@@ -1,0 +1,21 @@
+class Solution:
+    def nextGreaterElement(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        res = {}
+        stack = [] 
+        for num in nums2:
+            while stack and num > stack[-1]:
+                res[stack.pop()] = num
+            stack.append(num)
+        while stack:
+            res[stack.pop()] = -1
+        return [res.get(num, -1) for num in nums1]
+        
+        
+1. We use a dictionary res to store the mapping from each element in nums2 to its next greater element
+2. We iterate through nums2 and use a stack to keep track of elements that have not found their next greater element yet
+   For each element num:
+      a. We pop all elements from the stack that are smaller than num and set their next greater element to num
+      b. We add num to the stack
+3. After iterating through nums2, we set the next greater element of all remaining elements in the stack to -1
+4. Finally, we create a list of next greater elements for each element in nums1 by looking up its mapping in res
+   If an element is not in res, it means it doesn't have a next greater element, so we set it to -1.
