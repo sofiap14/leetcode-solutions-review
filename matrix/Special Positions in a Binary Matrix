@@ -1,0 +1,22 @@
+class Solution:
+    def numSpecial(self, mat: List[List[int]]) -> int:
+        c = 0
+        l = []
+        for i in range(len(mat)):
+            if sum(mat[i]) == 0 or sum(mat[i]) > 1:
+                continue
+            l.append(mat[i].index(1))
+        for idx, col in enumerate(zip(*mat)):
+            if idx in l and sum(col) == 1:
+                c+=1
+        return c
+
+1. Initialize a counter variable c to 0 and an empty list l.
+2. Loop through each row i in the matrix using a for loop:
+3. Check if the sum of the row i is 0 or greater than 1.
+4. If it is, skip to the next iteration of the loop using the continue keyword.
+5. Otherwise, append the index of the 1 in row i to the list l using the index() method.
+6. Loop through each column col in the transposed matrix using the zip() function and the asterisk (*) operator to unpack the columns:
+7. Check if the index of column col is in the list l and the sum of column col is 1.
+8. If both conditions are true, increment the counter variable c by 1.
+9. Return the value of the counter variable c as the result of the function.
