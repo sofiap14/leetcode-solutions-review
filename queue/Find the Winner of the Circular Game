@@ -1,0 +1,23 @@
+class Solution:
+    def findTheWinner(self, n: int, k: int) -> int:
+        queue = deque(range(1, n + 1))
+        count = 0
+        while len(queue) > 1:
+            current_friend = queue.popleft()
+            count += 1
+            if count == k:
+                count = 0
+            else:
+                queue.append(current_friend)
+        return queue[0]
+       
+1. We create a deque object called friend_queue that contains the indices of all the friends from 1 to num_friends.
+2. We initialize a counter variable count to keep track of the number of friends counted so far.
+3. We loop through the friend_queue until there is only one friend left. On each iteration of the loop:
+    a. We dequeue the first friend in the friend_queue using the popleft() method.
+    b. We increment the count variable to keep track of the number of friends counted so far.
+    c. If the count variable equals kth_friend, it means that we have counted kth_friend friends, so the current_friend is removed from the game by not appending it back to the friend_queue and the count is reset to zero.
+    d. If the count variable is not equal to kth_friend, it means we have not counted enough friends to eliminate a friend, so we append the current_friend back to the end of the friend_queue.
+4. When there is only one friend left in the friend_queue, we return the remaining friend as the winner of the game.
+
+O(n * k) - time complexity
