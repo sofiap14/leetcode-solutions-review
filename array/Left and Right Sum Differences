@@ -1,0 +1,27 @@
+Given a 0-indexed integer array nums, find a 0-indexed integer array answer where:
+answer.length == nums.length.
+answer[i] = |leftSum[i] - rightSum[i]|.
+Where:
+leftSum[i] is the sum of elements to the left of the index i in the array nums. If there is no such element, leftSum[i] = 0.
+rightSum[i] is the sum of elements to the right of the index i in the array nums. If there is no such element, rightSum[i] = 0.
+Return the array answer.
+
+class Solution:
+    def leftRightDifference(self, nums: List[int]) -> List[int]:
+        prefix = 0 
+        suffix = sum(nums)
+        ans = []
+        for x in nums: 
+            prefix += x
+            ans.append(abs(prefix - suffix))
+            suffix -= x
+        return ans 
+
+1. Initialize prefix variable to 0, which will keep track of the sum of elements on the left side.
+2. Calculate the initial value of suffix by summing all the elements in the nums list. This represents the sum of elements on the right side.
+3. Initialize an empty list ans to store the absolute differences.
+4. Iterate over each element x in the nums list.
+  a. Add the current element x to prefix, updating the sum of elements on the left side.
+  b. Calculate the absolute difference between prefix and suffix and append it to the ans list.
+  c. Subtract the current element x from suffix, updating the sum of elements on the right side.
+5. Return the ans list, which contains the absolute differences for each element in nums.
