@@ -1,0 +1,26 @@
+You are given an integer array deck where deck[i] represents the number written on the ith card.
+Partition the cards into one or more groups such that:
+Each group has exactly x cards where x > 1, and
+All the cards in one group have the same integer written on them.
+Return true if such partition is possible, or false otherwise.
+
+class Solution:
+    def hasGroupsSizeX(self, deck: List[int]) -> bool:
+        if len(deck) < 2:
+            return False
+
+        deckCount = {}
+        for card in deck:
+            if card not in deckCount:
+                deckCount[card] = 1
+            else:
+                deckCount[card] += 1
+
+        counts = list(deckCount.values())
+        gcd_value = reduce(gcd, counts)
+
+        return gcd_value > 1   
+
+This code works by calculating the frequency of each card using a dictionary (deckCount). The counts of each card are then used to calculate the greatest common divisor (gcd) using Python's 
+built-in math.gcd function with functools.reduce to apply it to the entire list of counts. If the gcd is greater than 1, it means the counts can be divided into groups of size x, so the function returns True.
+If not, it returns False.
