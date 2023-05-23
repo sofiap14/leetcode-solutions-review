@@ -1,0 +1,23 @@
+Given an integer array nums, return the third distinct maximum number in this array. If the third maximum does not exist, return the maximum number.
+
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        nums = set(nums)
+        max1 = max2 = max3 = float('-inf')
+        for num in nums:
+            if num > max1:
+                max1, max2, max3 = num, max1, max2
+            elif max2 < num < max1:
+                max2, max3 = num, max2
+            elif max3 < num < max2:
+                max3 = num
+        return max3 if max3 != float('-inf') else max1
+        
+1. if num > max1: - This condition checks if the current number (num) is larger than the current maximum number (max1). 
+If it is, then we have a new maximum number. We need to update max1 to be num, max2 to be the old max1 and max3 to be the old max2.
+2. elif max2 < num < max1: - This condition checks if num is between max2 and max1. This means num is not as large as the current maximum (max1), but it's larger than the current second maximum (max2). 
+So, we update max2 to be num, and max3 to be the old max2.
+3. elif max3 < num < max2: - This condition checks if num is between max3 and max2. 
+If it is, then num is larger than the current third maximum (max3), but not as large as the current second maximum (max2). We update max3 to be num.
+4.  If max3 is still negative infinity at the end of the function, it means there were fewer than three distinct numbers, 
+    so the function returns the maximum (max1). Otherwise, it returns max3.
