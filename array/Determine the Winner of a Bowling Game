@@ -1,0 +1,53 @@
+You are given two 0-indexed integer arrays player1 and player2, that represent the number of pins that player 1 and player 2 hit in a bowling game, respectively.
+The bowling game consists of n turns, and the number of pins in each turn is exactly 10.
+Assume a player hit xi pins in the ith turn. The value of the ith turn for the player is:
+2xi if the player hit 10 pins in any of the previous two turns.
+Otherwise, It is xi.
+The score of the player is the sum of the values of their n turns.
+Return:
+      1 if the score of player 1 is more than the score of player 2,
+      2 if the score of player 2 is more than the score of player 1, and
+      0 in case of a draw.
+ 
+
+class Solution:
+    def isWinner(self, player1: List[int], player2: List[int]) -> int:
+        def score(nums):
+            score = 0
+            flag = False
+
+            for i in range(len(nums)):
+                score += nums[i]
+
+                if flag:
+                    score += nums[i]
+                    doubles -= 1
+
+                    if doubles == 0:
+                        flag = False
+
+                if nums[i] == 10:
+                    doubles = 2
+                    flag = True
+                    
+            return score
+        
+        score1, score2 = score(player1), score(player2)
+        
+        if score1 == score2:
+            return 0
+        elif score1 > score2:
+            return 1
+        else:
+            return 2
+            
+1. Inside the "isWinner" method, there is an inner function named "score" that calculates the score for a given player.
+   The function initializes the score to 0 and sets a flag variable to False.
+2. The "score" function iterates over the elements of the input list using a for loop. For each number in the list, it adds the number to the score.
+3. If the flag variable is True, it means that the previous number encountered was 10.
+   In this case, the function adds the current number again to the score and decreases a variable named "doubles" by 1.
+4. If the "doubles" variable reaches 0, it means that the effect of the 10 is over, so the flag is set to False.
+5. If the current number is 10, it means that the next two numbers should be added twice to the score. Therefore, the function sets "doubles" to 2 and the flag to True.
+6. After iterating through all the numbers in the list, the "score" function returns the final calculated score.
+7. Back in the "isWinner" method, the scores for "player1" and "player2" are calculated by calling the "score" function with each player's list as an argument.
+8. The method then compares the scores of "player1" and "player2" using if-elif-else conditions.     
