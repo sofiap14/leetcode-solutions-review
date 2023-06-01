@@ -1,0 +1,21 @@
+Given an integer array nums, rotate the array to the right by k steps, where k is non-negative.
+
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        def reverse(nums, start, end):
+            while start < end:
+                nums[start], nums[end] = nums[end], nums[start]
+                start += 1
+                end -= 1
+
+        k = k % len(nums)
+        reverse(nums, 0, len(nums) - 1)
+        reverse(nums, 0, k - 1)
+        reverse(nums, k, len(nums) - 1)
+
+1. Calculate effective rotations (k mod length) for array rotation.
+2. Reverse entire array.
+3. Reverse first k elements.
+4. Reverse remaining elements.
+5. The array will be rotated by k steps to the right.
+   Done in O(n) time complexity.
