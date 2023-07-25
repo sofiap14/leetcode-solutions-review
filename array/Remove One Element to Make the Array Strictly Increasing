@@ -13,4 +13,11 @@ class Solution:
                     nums[i] = nums[i-1] #basically removing the number causing it not be greatly increasing
         
         return True
-        
+
+1. The function checks if the list "nums" can be made strictly increasing by modifying at most one element.
+2. It initializes a "count" variable to track the number of non-increasing pairs of adjacent elements.
+3. In a loop, it compares each element with the previous one.
+4. If an element is not greater than the previous one, it increments "count."
+5. If "count" exceeds 1, it returns False, as it's not possible to make the list strictly increasing by modifying only one element.
+6. If an element is not greater than the one before the previous one, it updates the current element to maintain the increasing order.
+7. If the loop completes without returning False, it returns True, indicating that the list can be made strictly increasing.
