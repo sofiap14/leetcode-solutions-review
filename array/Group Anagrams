@@ -1,0 +1,26 @@
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
+
+
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        res = collections.defaultdict(list)
+        for s in strs: # in "eat"
+            count = [0] * 26
+            for c in s: # e , a , t
+                count[ord(c) - ord("a")] += 1   #1e 1a 1t
+            count = tuple(count)
+            res[count].append(s)
+        return res.values()
+
+
+1. Initialize an empty dictionary "ans" with default values of empty lists using collections.defaultdict(list). This dictionary will be used to group anagrams
+2. Loop through each string "s" in the input list "strs":
+    a. Initialize a list "count" of length 26 (representing the 26 lowercase English letters) with all elements set to 0. This list will be used to count the occurrences of each letter in the string.
+    b. For each character "c" in the string "s":
+          Calculate the index of the character in the "count" list using ord(c) - ord("a"). This index maps each character to its respective position in the "count" list (e.g., 'a' is at index 0, 'b' at index 1, and so on).
+          Increment the count of that character by 1.
+          Convert the "count" list into a tuple, as lists are not hashable and cannot be used as keys in dictionaries. The tuple of counts will be used as the key in the dictionary to group anagrams.
+3. Append the string "s" to the list corresponding to the tuple "count" in the "ans" dictionary. This effectively groups anagrams together based on their character counts.
+4. Once all strings have been processed, the "ans" dictionary will contain lists of anagrams grouped by their character counts.
+5. Return the values of the "ans" dictionary, which will be a list of lists, where each inner list contains strings that are anagrams of each other.
