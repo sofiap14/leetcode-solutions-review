@@ -13,8 +13,11 @@ Return the array in the form [x1,y1,x2,y2,...,xn,yn].
             j -= 1
         return res
 
-1. Set indices i and j to 0 and n respectively.
-2. Iterate while i is less than n and j is within nums length.
-3. Append nums[i] and nums[-j] to the result list res.
-4. Increment i and decrement j.
-5. Return the shuffled list res containing interleaved elements from the first and second halves of nums.
+1. Start two pointers i and j at the beginning of the first half (i=0) and the second half (j=n) of the array.
+2. Initialize an empty list "res" to store the shuffled elements.
+3. While i is within the first half and j is within or equal to the length of the array (second half):
+   a. Append the element at index i from the first half to "res".
+   b. Append the element at index -j (counting from the end) from the second half to "res".
+   c. Increment i and decrement j to move to the next pair of elements.
+4. Continue this process until all elements from both halves are added to "res".
+5. Return the "res" list, which now contains the shuffled elements in the desired order.
