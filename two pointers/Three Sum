@@ -1,0 +1,37 @@
+Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]] such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        nums.sort()
+
+        for i, a in enumerate(nums):
+            if i > 0 and a == nums[i - 1]:
+                continue
+            l, r = i + 1, len(nums) - 1
+            while l < r:
+                threeSum = a + nums[l] + nums[r]
+                if threeSum > 0:
+                    r -= 1
+                elif threeSum < 0:
+                    l += 1
+                else:
+                    res.append([a, nums[l], nums[r]])
+                    l += 1
+                    while nums[l] == nums[l - 1] and l < r:
+                        l += 1
+        return res
+
+1. Sort the input list nums in ascending order.
+2. Initialize an empty list res to store the triplets (triplets summing to zero).
+3. Loop through the sorted list using enumerate, getting the index i and the element a (first element).
+4. Skip the current iteration if the element is the same as the previous one to avoid duplicate triplets.
+5. Set two pointers l and r to the indices of the elements immediately after a.
+6. While l is less than r, calculate the sum of three elements (current element a, and elements at indices l and r).
+    a. If the sum is greater than zero, decrement r to consider smaller elements.
+    b. If the sum is less than zero, increment l to consider larger elements.
+    c. If the sum is zero, append the triplet [a, nums[l], nums[r]] to the result list res.
+       Increment l while skipping duplicates until l is equal to r.
+7. Continue the outer loop with the next unique element.
+8. Finally, return the list res containing all unique triplets that sum to zero.
