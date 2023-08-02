@@ -1,0 +1,31 @@
+Given an array of integers temperatures represents the daily temperatures, return an array answer 
+such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature.
+ If there is no future day for which this is possible, keep answer[i] == 0 instead.
+
+class Solution:
+    def dailyTemperatures(self, temperatures: List[int]) -> List[int]:
+        stack = []
+        res = [0] * len(temperatures)
+        for i, t in enumerate(temperatures):
+            while stack and t > stack[-1][0]:
+                stackT, stackIndex = stack.pop()
+                res[stackIndex] = (i - stackIndex)
+            stack.append([t, i])
+        return res
+
+1. Initialize an empty stack to store pairs of temperatures and their indices, and initialize the res list with zeroes, which will store the result.
+2. Iterate through each temperature and its index in the temperatures list using the enumerate function.
+3. While the stack is not empty and the current temperature t is greater than the temperature at the top of the stack, pop the top temperature and its index from the stack. 
+   This indicates that the current temperature is warmer than the temperature at the top of the stack, and we need to update the result for the corresponding index in res.
+4. Calculate the number of days you have to wait for a warmer temperature, which is the difference between the current index i and the index of the temperature 
+   at the top of the stack (stackIndex).
+5. Store this calculated value in the res list at the corresponding index stackIndex.
+6. Push the current temperature t and its index i as a pair onto the stack for later processing.
+7. Continue the loop until all temperatures in the temperatures list have been processed.
+8. Finally, return the res list, which contains the number of days to wait for a warmer temperature for each day's temperature. 
+   The res list is now filled with the correct values for all indices, indicating the number of days you have to wait until a warmer temperature occurs.
+
+
+
+
+
