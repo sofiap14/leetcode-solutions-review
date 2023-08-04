@@ -1,0 +1,37 @@
+Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
+Implement the MinStack class:
+MinStack() initializes the stack object.
+void push(int val) pushes the element val onto the stack.
+void pop() removes the element on the top of the stack.
+int top() gets the top element of the stack.
+int getMin() retrieves the minimum element in the stack.
+You must implement a solution with O(1) time complexity for each function.
+
+
+class MinStack:
+    def __init__(self):
+        self.stack = []
+        self.minStack = []
+        
+    def push(self, val: int) -> None:
+        self.stack.append(val)
+        minval = min(val, self.minStack[-1] if self.minStack else val)
+        self.minStack.append(minval)
+
+    def pop(self) -> None:
+        self.stack.pop()
+        self.minStack.pop()
+
+    def top(self) -> int:
+        return self.stack[-1]
+
+    def getMin(self) -> int:
+        return self.minStack[-1]
+
+1. Constructor (__init__): Initializes two stacks, self.stack to store the actual elements and self.minStack to keep track of the minimum element at any given point.
+   Since the minimum element may change with push and pop operations, minStack will have the minimum value up to that point.
+2. Push (push): When pushing a value onto the stack, you also update the minStack. You calculate the minimum value between the current value (val) and the top element of minStack. 
+   If minStack is empty, you use the current value. Then, you push both the value onto stack and the minimum value onto minStack.
+3. Pop (pop): Pops the top element from both stack and minStack. This ensures that the consistency between the two stacks is maintained.
+4. Top (top): Returns the top element of stack, which is the most recently pushed element.
+5. Get Minimum (getMin): Returns the top element of minStack, which is the minimum element in the stack at the current state.
