@@ -1,0 +1,31 @@
+You are given an array of integers nums, there is a sliding window of size k which is moving from the very left of the array to the very right. 
+You can only see the k numbers in the window. Each time the sliding window moves right by one position.
+Return the max sliding window.
+
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res = []
+        window = []
+        left = right = 0
+        
+        while right < len(nums):
+            while window and nums[window[-1]] < nums[right]:
+                window.pop()
+            window.append(right)
+            right += 1
+
+            if (right - left) + 1 > k:
+                res.append(nums[window[0]])
+                left += 1
+            
+            if left > window[0]:
+                window.pop(0)
+        return res
+
+1. Initialize an empty result list res, a sliding window window, and two pointers left and right.
+2. Iterate through the nums list using right pointer:
+    a. While window is not empty and the value at right index is greater than the value at the last index in window, remove the last index from window.
+    b. Add the current right index to the window.
+    c. If the size of the window is equal to k, append the maximum value from the window to res and move the left pointer.
+    d. If the value at the index in window is smaller than the current left pointer, remove that index from the front of window.
+3. Return the res list containing the maximum values within each window of size k.
