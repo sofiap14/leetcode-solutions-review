@@ -1,0 +1,31 @@
+Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
+Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. 
+If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
+Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
+Return the minimum integer k such that she can eat all the bananas within h hours.
+
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        l, r = 1, max(piles)
+        res = max(piles)
+        while l <= r:
+            k = (l + r) // 2
+
+            totalTime = 0
+            for p in piles:
+                totalTime += math.ceil(p / k)
+            print(totalTime)
+            if totalTime <= h:
+                res = min(res, k)
+                r = k - 1
+            else:
+                l = k + 1
+        return res
+
+1. The range of possible 'k' values is [1 to max(pile)], a brute force way would be to go through each until you find the minimum. 
+   Instead you can use binary search to cut down on which k values within the range the min k might lie.
+2. The left and right pointers are set to 1 and max(pile) respectively, and the mid k is calculated. 
+3. For each value in pile, how many hours does it take to get through the pile if Koko eats at the rate of selected mid k. totalTime += ceil(p / k)
+4. If the hours it takes is lesser than h, we can move the Right pointer to k - 1. Before that, update the minK = min(minK, k)
+    If the hours is greater than k, then update Left pointer to k + 1
+5. Return result which holds the min k that can eat all piles within h hours.
