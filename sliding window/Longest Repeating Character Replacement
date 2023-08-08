@@ -1,0 +1,26 @@
+You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. 
+You can perform this operation at most k times.
+Return the length of the longest substring containing the same letter you can get after performing the above operations.
+
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        count = {}
+        res = 0
+        l = 0
+        for r in range(len(s)):
+            count[s[r]] = 1 + count.get(s[r], 0)
+            
+            while (r-l+1) - max(count.values()) > k:
+                count[s[l]] -= 1
+                l += 1
+
+            res = max(res, r-l+1)
+        return res
+
+1. Initialize a hashmap count that stores the frequency of characters in a window
+2. Res to store the longest substring possible with k operations
+3. The left pointer at the start of the window and the right pointer moves through the entire string
+4. While the length of the window - most frequent letter in the window is greater than possible replacements [AABBA] k = 1
+    shrink the window from the start and decrement the count of the character at the window start
+5. Calculate the result length
+6. Return res
