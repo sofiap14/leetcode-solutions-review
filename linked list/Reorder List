@@ -1,0 +1,28 @@
+class Solution:
+    def reorderList(self, head: ListNode) -> None:
+        # find middle
+        slow, fast = head, head.next
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        # reverse second half
+        second = slow.next 
+        prev = slow.next = None # The link between first and second half is broken
+        while second:
+            tmp = second.next
+            second.next = prev
+            prev = second
+            second = tmp
+
+        # merge two halfs
+        first, second = head, prev
+        while second:
+            tmp1, tmp2 = first.next, second.next # keep record of the link about to be changed
+            first.next = second
+            second.next = tmp1
+            first, second = tmp1, tmp2
+
+1. For reordering list, we take two halves of the linked list by finding the middle node. 
+2. The second half of the linked list is reversed.
+3. The first and second half are merged (alternatively)
