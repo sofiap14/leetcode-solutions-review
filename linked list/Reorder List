@@ -2,7 +2,7 @@ class Solution:
     def reorderList(self, head: ListNode) -> None:
         # find the middle of the linked list to split the linked list into two
         slow, fast = head, head
-        while fast and fast.next:
+        while fast and fast.next: # When fast pointer reaches last node without a next node, slow is at the middle
             slow = slow.next
             fast = fast.next.next
         
