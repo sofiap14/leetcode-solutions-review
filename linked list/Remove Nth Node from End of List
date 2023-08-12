@@ -1,0 +1,27 @@
+Given the head of a linked list, remove the nth node from the end of the list and return its head.
+
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        left = dummy
+        right = head
+
+        for _ in range(n):
+            right = right.next
+        
+        while right:
+            left = left.next
+            right = right.next
+        
+        left.next = left.next.next
+
+        return dummy.next
+
+1. Take two pointers and offset them by n. Right pointer is ahead of left by n places.
+2. When right pointer reaches the end, the left pointer points exactly at the node we need to remove (nth from last)
+3. However, we need to access the node before the node to be removed to update the link to skip it.
+4. This is why we have a dummy node at which we initialize the left pointer.
+5. Now, when the fast pointer reaches the end, the left points to the node before the nth node from last that is to be removed
+6. Update the left.next = left.next.next to skip that node
+7. Return the dummy.next. Note: We don't return head because in cases where the first node is the one to be removed we would end up 
+  returning the original linked list without the removal. If we return dummy.next, we would be returning the modified list after removing the link
