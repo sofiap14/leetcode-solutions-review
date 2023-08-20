@@ -1,0 +1,35 @@
+Given the root node of a binary search tree and two integers low and high, return the sum of values of all nodes with a value in the inclusive range [low, high].
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        curr = 0
+        left, right = 0, 0
+
+        if root == None:
+            return 0
+
+        if root.val >= low and root.val <= high:
+            curr += root.val
+
+        if root.val > low:
+            left = self.rangeSumBST(root.left, low, high)
+
+        if root.val < high:
+            right = self.rangeSumBST(root.right, low, high)
+
+        return curr + left + right
+
+
+1. Initialize the current sum to 0.
+2. Initialize left and right sums to 0.
+3. if root == None: return 0: If the current node is None (end of the branch), return 0, indicating no contribution to the sum.
+4. if root.val >= low and root.val <= high: curr += root.val: If the value of the current node falls within the given range [low, high], add its value to the current sum.
+5. if root.val > low: left = self.rangeSumBST(root.left, low, high): If the value of the current node is greater than low, recursively calculate the sum of the left subtree within the given range.
+6. if root.val < high: right = self.rangeSumBST(root.right, low, high): If the value of the current node is less than high, recursively calculate the sum of the right subtree within the given range.
+7. return curr + left + right: Return the sum of the current node value, left subtree sum, and right subtree sum.
