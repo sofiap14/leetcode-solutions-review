@@ -1,0 +1,39 @@
+Given the root of a binary tree, return the sum of values of nodes with an even-valued grandparent. If there are no nodes with an even-valued grandparent, return 0.
+A grandparent of a node is the parent of its parent if it exists.
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sumEvenGrandparent(self, root: TreeNode) -> int:
+        self.total = 0
+        def dfs(root):
+            if root.val % 2 == 0:
+                if root.left:
+                    if root.left.left:
+                        self.total += root.left.left.val
+                    if root.left.right:
+                        self.total += root.left.right.val
+                if root.right:
+                    if root.right.left:
+                        self.total += root.right.left.val
+                    if root.right.right:
+                        self.total += root.right.right.val
+            if root.left:
+                dfs(root.left)
+            if root.right:
+                dfs(root.right)
+            return None
+        dfs(root)
+        return self.total 
+
+1. Initialize a variable total to store the sum.
+2. Define a recursive function dfs that traverses the tree.
+3. If the current node's value is even:
+4. Add the values of the left grandchild nodes if they exist.
+5. Add the values of the right grandchild nodes if they exist.
+6. Traverse the left subtree and right subtree recursively using dfs.
+7. Return the total sum.
